@@ -1,0 +1,121 @@
+syntax = "proto3";
+package veriservice;
+// option go_package="github.com/bgokden/veri/veriservice";
+
+// protoc -I veriservice/ veriservice/veriservice.proto --go_out=plugins=grpc:veriservice
+// The Veri service definition.
+service VeriService {
+  rpc Search(SearchRequest) returns (SearchResponse) {}
+  rpc Insert(InsertionRequest) returns (InsertionResponse) {}
+  rpc Join(JoinRequest) returns (JoinResponse) {}
+  rpc DataStream(GetDataRequest) returns (stream Datum) {}
+  rpc CreateDataIfNotExists(DataConfig) returns (DataInfo) {}
+  rpc GetDataInfo(GetDataRequest) returns (DataInfo) {}
+  rpc SearchStream(SearchRequest) returns (stream ScoredDatum) {}
+}
+
+// Request message for creating a new customer
+message SearchRequest {
+    SearchConfig config = 1;
+    Datum datum = 2;
+}
+
+message SearchConfig {
+    string scoreFuncName = 1;
+    bool higherIsBetter = 2;
+    uint64 timestamp = 3;
+    uint64 timeout = 4;
+    uint32 Limit = 5;
+    uint64 cacheDuration = 6;
+    string dataName = 7;
+}
+
+message GetDataRequest {
+    string name = 1;
+}
+
+message Datum {
+  DatumKey key = 1;
+  DatumValue value = 2;
+}
+
+message DatumKey {
+  repeated double feature = 1;
+  bytes groupLabel = 2;
+  uint32 size1 = 3;
+  uint32 size2 = 4;
+  uint32 dim1 = 5;
+  uint32 dim2 = 6;
+}
+
+message DatumValue {
+  uint64 version = 1;
+  bytes label = 2;
+}
+
+message ScoredDatum {
+    double score = 1;
+    Datum datum = 2;
+}
+
+message InsertDatumWithConfig{
+    InsertConfig config = 1;
+    Datum datum = 2;
+}
+
+message SearchResponse {
+  repeated ScoredDatum result = 1;
+}
+
+message InsertionRequest {
+  InsertConfig config = 1;
+  Datum datum = 2;
+  string dataName = 3;
+}
+
+message InsertConfig {
+    uint64 tTL = 1;
+}
+
+message InsertionResponse {
+  int32 code = 1;
+}
+
+
+message DataInfo {
+  string name = 1;
+  uint64 timestamp = 2;
+  string version = 3;
+  repeated double avg = 4;
+  repeated double hist = 5;
+  uint64 n = 6;
+  double maxDistance = 7;
+  uint64 targetN = 8;
+  double TargetUtilization = 9;
+  bool NoTarget = 10;
+}
+
+message DataConfig {
+  string name = 1;
+  string version = 2;
+  uint64 TargetN = 3;
+  double TargetUtilization = 4;
+  bool NoTarget = 5;
+}
+
+message Peer {
+  repeated string addressList = 1;
+  string version = 2;
+  uint64 timestamp = 3;
+  repeated DataConfig dataList = 4;
+  repeated string serviceList = 5;
+  repeated Peer peerList = 6;
+}
+
+message JoinRequest {
+  Peer peer = 1;
+}
+
+message JoinResponse {
+  string address = 1; // received address
+}
