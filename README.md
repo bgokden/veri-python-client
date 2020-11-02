@@ -16,14 +16,11 @@ service = "localhost:5000"
 
 veriservice.init_service(service)
 
-vsc = veriservice.VeriClient(service)
+vsc = veriservice.VeriClient(service, "example_data")
 ```
 
 ```python
-data_conf = {
-    'dataName': 'example',
-}
-
+data_conf = {}
 client.create_data_if_not_exists(data_conf)
 data = [
             {
@@ -40,17 +37,12 @@ data = [
             },
         ]
 
-insertion_conf = {
-    'dataName': 'example',
-    'ttl': 1000,
-}
 for d in data:
-    client.insert(d['feature'], d['label'], d['label'], 0, insertion_conf)
+    client.insert_vector(d['feature'], d['label'].encode())
 ```
 
 ```python
 search_conf = {
-    'dataName': 'example',
     'ttl': 1000,
 }
 result = client.search([0.1, 0.1, 0.1], search_conf)

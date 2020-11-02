@@ -64,10 +64,12 @@ class GrpcClientWrapper:
     def get_client(self):
         return self.client
 
+
 class VeriClient:
-    def __init__(self, services):
+    def __init__(self, services, data_name):
         self.services = services.split(",") # eg.: 'localhost:50051, localhost2:50051'
         self.clients = {}
+        self.data_name = data_name
 
     def __get_client(self):
         service = random.choice(self.services)
@@ -82,6 +84,78 @@ class VeriClient:
         self.clients[service] = GrpcClientWrapper(service, pb_grpc.VeriServiceStub(channel))
         time.sleep(5)
 
+
+
+
+    def create_data_if_not_exists(self, data_config={}, retry=5):
+        request = pb.DataConfig(
+            name=self.data_name,
+            version=data_config.get("version", "v0"),
+            TargetN=data_config.get("target_n", 10000),
+            TargetUtilization=data_config.get("target_utilization", 0.9),
+            NoTarget=False,
+        )
+        response = None
+        while retry >= 0:
+            client_wrapper = None
+            try:
+                client_wrapper = self.__get_client()
+                response = client_wrapper.get_client().CreateDataIfNotExists(request)
+                if response != None:
+                    return response
+            except grpc.RpcError as e:  # there should be connection problem
+                if client_wrapper is not None:
+                    self.__refresh_client(client_wrapper.get_service())
+            except Exception as e:
+                logging.debug(f"Error during insert: {e}")
+                time.sleep(0.200)
+            retry -= 1
+        return response
+
+
+    def insert_vector(self,
+                      vector,
+                      label,
+                      groupLabel=None,
+                      ttl=None,
+                      retry=5,
+                      ):
+        request = pb.InsertionRequest(
+            config=pb.InsertConfig(
+                tTL=ttl
+            ),
+            datum=pb.Datum(
+                key=pb.DatumKey(
+                    feature=vector,
+                    groupLabel=groupLabel,
+                    size1=1,
+                    size2=0,
+                    dim1=len(vector),
+                    dim2=0,
+                ),
+                value=pb.DatumValue(
+                    version=None,
+                    label=label,
+                ),
+            ),
+            dataName=self.data_name,
+        )
+        response = None
+        while retry >= 0:
+            client_wrapper = None
+            try:
+                client_wrapper = self.__get_client()
+                response = client_wrapper.get_client().Insert(request)
+                if response.code == 0:
+                    return response
+            except grpc.RpcError as e:  # there should be connection problem
+                if client_wrapper is not None:
+                    self.__refresh_client(client_wrapper.get_service())
+            except Exception as e:
+                logging.debug(f"Error during insert: {e}")
+                time.sleep(0.200)
+            retry -= 1
+        return response
 
     def insert(self,
                 feature,
