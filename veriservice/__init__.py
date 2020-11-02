@@ -4,7 +4,6 @@ import random
 import urllib.request
 import platform
 import tempfile
-import shutil
 import os
 import stat
 import logging
@@ -13,7 +12,7 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.19"
+__version__ = "0.0.22"
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -82,7 +81,7 @@ class VeriClient:
     def __refresh_client(self, service):
         channel = grpc.insecure_channel(service)
         self.clients[service] = GrpcClientWrapper(service, pb_grpc.VeriServiceStub(channel))
-        time.sleep(5)
+        time.sleep(0.500)
 
 
 
@@ -116,25 +115,24 @@ class VeriClient:
     def insert_vector(self,
                       vector,
                       label,
-                      groupLabel=None,
-                      ttl=None,
-                      retry=5,
+                      **kwargs
                       ):
+        retry = kwargs.get("retry", 5)
         request = pb.InsertionRequest(
             config=pb.InsertConfig(
-                tTL=ttl
+                tTL=kwargs.get("ttl", None)
             ),
             datum=pb.Datum(
                 key=pb.DatumKey(
                     feature=vector,
-                    groupLabel=groupLabel,
-                    size1=1,
-                    size2=0,
-                    dim1=len(vector),
-                    dim2=0,
+                    groupLabel=kwargs.get("group_label", None),
+                    size1=kwargs.get("size1", 1),
+                    size2=kwargs.get("size2", 0),
+                    dim1=kwargs.get("dim1", len(vector)),
+                    dim2=kwargs.get("dim2", 0),
                 ),
                 value=pb.DatumValue(
-                    version=None,
+                    version=kwargs.get("version", None),
                     label=label,
                 ),
             ),
@@ -157,116 +155,41 @@ class VeriClient:
             retry -= 1
         return response
 
-    def insert(self,
-                feature,
-                label,
-                grouplabel = '',
-                timestamp = 0,
-                sequencelengthone = 0,
-                sequencelengthtwo = 0,
-                sequencedimone = 0,
-                sequencedimtwo = 0,
-                retry = 5):
-        request = pb.InsertionRequest(timestamp = timestamp,
-                                        label = label,
-                                        grouplabel = grouplabel,
-                                        feature = feature,
-                                        sequencelengthone = sequencelengthone,
-                                        sequencelengthtwo= sequencelengthtwo,
-                                        sequencedimone = sequencedimone,
-                                        sequencedimtwo = sequencedimtwo)
+    def search_vector(self, vector, **kwargs):
+        retry = kwargs.get("retry", 5)
+        request = pb.SearchRequest(
+            config=pb.SearchConfig(
+                dataName=self.data_name,
+                scoreFuncName=kwargs.get("score_func_name", "VectorDistance"),
+                higherIsBetter=kwargs.get("higher_is_better", False),
+                timestamp=int(time.time()),
+                timeout=kwargs.get("timeout", 1000),
+                Limit=kwargs.get("limit", 1000),
+                cacheDuration=kwargs.get("cache_duration", 60),
+            ),
+            datum=pb.Datum(
+                key=pb.DatumKey(
+                    feature=vector,
+                    groupLabel=kwargs.get("group_label", None),
+                    size1=kwargs.get("size1", 1),
+                    size2=kwargs.get("size2", 0),
+                    dim1=kwargs.get("dim1", len(vector)),
+                    dim2=kwargs.get("dim2", 0),
+                ),
+            ),
+        )
         response = None
         while retry >= 0:
             client_wrapper = None
             try:
                 client_wrapper = self.__get_client()
-                response = client_wrapper.get_client().Insert(request)
-                if response.code == 0:
-                    return response
+                response = client_wrapper.get_client().SearchStream(request)
+                return response
             except grpc.RpcError as e: # there should be connection problem
                 if client_wrapper is not None:
                     self.__refresh_client(client_wrapper.get_service())
             except Exception as e:
-                print(e)
+                logging.debug(f"Error during insert: {e}")
                 time.sleep(0.200)
             retry -= 1
         return response
-
-    def getKnn(self, feature, k=10, id='', timestamp=0, timeout=1000, retry = 5):
-        request = pb.KnnRequest(id=id, timestamp=timestamp, timeout=timeout, k=k, feature=feature)
-        response = None
-        while retry >= 0:
-            client_wrapper = None
-            try:
-                client_wrapper = self.__get_client()
-                response = client_wrapper.get_client().GetKnn(request)
-                return response
-            except grpc.RpcError as e: # there should be connection problem
-                if client_wrapper is not None:
-                    self.__refresh_client(client_wrapper.get_service())
-            except Exception as e:
-                print(e)
-                time.sleep(5)
-            retry -= 1
-        return response
-
-    def getKnnStream(self, feature, k=10, id='', timestamp=0, timeout=1000, retry = 5):
-        request = pb.KnnRequest(id=id, timestamp=timestamp, timeout=timeout, k=k, feature=feature)
-        response = None
-        while retry >= 0:
-            client_wrapper = None
-            try:
-                client_wrapper = self.__get_client()
-                response = client_wrapper.get_client().GetKnnStream(request)
-                return response
-            except grpc.RpcError as e: # there should be connection problem
-                if client_wrapper is not None:
-                    self.__refresh_client(client_wrapper.get_service())
-            except Exception as e:
-                print(e)
-                time.sleep(5)
-            retry -= 1
-        return response
-
-    def getLocalData(self, retry = 5):
-        request = pb.GetLocalDataRequest()
-        response = None
-        while retry >= 0:
-            client_wrapper = None
-            try:
-                client_wrapper = self.__get_client()
-                response = client_wrapper.get_client().GetLocalData(request)
-                return response
-            except grpc.RpcError as e: # there should be connection problem
-                if client_wrapper is not None:
-                    self.__refresh_client(client_wrapper.get_service())
-            except Exception as e:
-                print(e)
-                time.sleep(5)
-            retry -= 1
-        return response
-
-class DemoVeriClientWithData:
-    def __init__(self, service):
-        self.client = VeriClient(service) # eg.: 'localhost:50051'
-        self.data = [
-            {
-                'label': 'a',
-                'feature': [0.5, 0.1, 0.2]
-            },
-            {
-                'label': 'b',
-                'feature': [0.5, 0.1, 0.3]
-            },
-            {
-                'label': 'c',
-                'feature': [0.5, 0.1, 1.4]
-            },
-             ]
-
-    def runExample(self):
-        print('inserting data')
-        for d in self.data:
-            self.client.insert(d['feature'], d['label'], d['label'], 0)
-        print('do a knn search')
-        print(self.client.getKnn([0.1, 0.1, 0.1]))

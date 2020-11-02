@@ -12,14 +12,11 @@ import veriservice
 
 
 ```python
-service = "localhost:5000"
+service = "localhost:5678"
 
 veriservice.init_service(service)
 
-vsc = veriservice.VeriClient(service, "example_data")
-```
-
-```python
+client = veriservice.VeriClient(service, "example_data")
 data_conf = {}
 client.create_data_if_not_exists(data_conf)
 data = [
@@ -39,13 +36,8 @@ data = [
 
 for d in data:
     client.insert_vector(d['feature'], d['label'].encode())
-```
 
-```python
-search_conf = {
-    'ttl': 1000,
-}
-result = client.search([0.1, 0.1, 0.1], search_conf)
+result = client.search_vector([0.1, 0.1, 0.1])
 for i in result:
-    print(result)
+    print(i)
 ```
