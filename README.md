@@ -35,9 +35,13 @@ data = [
         ]
 
 for d in data:
-    client.insert_vector(d['feature'], d['label'].encode())
+    client.insert(d['feature'], d['label'].encode())
 
-result = client.search_vector([0.1, 0.1, 0.1])
+result = client.search([[0.1, 0.1, 0.1]])
+for i in result:
+    print(i)
+
+result = client.data()
 for i in result:
     print(i)
 ```
