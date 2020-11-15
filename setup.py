@@ -10,14 +10,14 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='veriservice',
-      version='0.0.22',
+      version='0.0.23',
       description='Python client for Veri',
       long_description=long_description,
       long_description_content_type='text/markdown',
       url='http://github.com/bgokden/veri-python-client',
       author='Berk Gokden',
       author_email='berkgokden@gmail.com',
-      license='MIT',
+      license='Apache Software License',
       keywords='veri service python client',
       packages=find_packages(exclude=['tests*']),
       install_requires=['grpcio-tools','googleapis-common-protos'])

@@ -14,7 +14,7 @@ import veriservice
 ```python
 service = "localhost:5678"
 
-veriservice.init_service(service)
+veriservice.init_service(service, "./tmp")
 
 client = veriservice.VeriClient(service, "example_data")
 data_conf = {}

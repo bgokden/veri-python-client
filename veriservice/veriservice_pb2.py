@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11veriservice.proto\x12\x0bveriservice\"]\n\rSearchRequest\x12)\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x19.veriservice.SearchConfig\x12!\n\x05\x64\x61tum\x18\x02 \x03(\x0b\x32\x12.veriservice.Datum\"\xda\x01\n\x0cSearchConfig\x12\x15\n\rscoreFuncName\x18\x01 \x01(\t\x12\x16\n\x0ehigherIsBetter\x18\x02 \x01(\x08\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12\x0f\n\x07timeout\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\r\x12\x15\n\rcacheDuration\x18\x06 \x01(\x04\x12\x10\n\x08\x64\x61taName\x18\x07 \x01(\t\x12\x12\n\ngroupLimit\x18\x08 \x01(\r\x12\x1a\n\x12groupScoreFuncName\x18\t \x01(\t\x12\x0f\n\x07\x66ilters\x18\n \x03(\t\"\x1e\n\x0eGetDataRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"S\n\x05\x44\x61tum\x12\"\n\x03key\x18\x01 \x01(\x0b\x32\x15.veriservice.DatumKey\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.veriservice.DatumValue\"i\n\x08\x44\x61tumKey\x12\x0f\n\x07\x66\x65\x61ture\x18\x01 \x03(\x01\x12\x12\n\ngroupLabel\x18\x02 \x01(\x0c\x12\r\n\x05size1\x18\x03 \x01(\r\x12\r\n\x05size2\x18\x04 \x01(\r\x12\x0c\n\x04\x64im1\x18\x05 \x01(\r\x12\x0c\n\x04\x64im2\x18\x06 \x01(\r\",\n\nDatumValue\x12\x0f\n\x07version\x18\x01 \x01(\x04\x12\r\n\x05label\x18\x02 \x01(\x0c\"?\n\x0bScoredDatum\x12\r\n\x05score\x18\x01 \x01(\x01\x12!\n\x05\x64\x61tum\x18\x02 \x01(\x0b\x32\x12.veriservice.Datum\"e\n\x15InsertDatumWithConfig\x12)\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x19.veriservice.InsertConfig\x12!\n\x05\x64\x61tum\x18\x02 \x01(\x0b\x32\x12.veriservice.Datum\":\n\x0eSearchResponse\x12(\n\x06result\x18\x01 \x03(\x0b\x32\x18.veriservice.ScoredDatum\"r\n\x10InsertionRequest\x12)\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x19.veriservice.InsertConfig\x12!\n\x05\x64\x61tum\x18\x02 \x01(\x0b\x32\x12.veriservice.Datum\x12\x10\n\x08\x64\x61taName\x18\x03 \x01(\t\"\x1b\n\x0cInsertConfig\x12\x0b\n\x03tTL\x18\x01 \x01(\x04\"!\n\x11InsertionResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"\xb5\x01\n\x08\x44\x61taInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0b\n\x03\x61vg\x18\x04 \x03(\x01\x12\x0c\n\x04hist\x18\x05 \x03(\x01\x12\t\n\x01n\x18\x06 \x01(\x04\x12\x13\n\x0bmaxDistance\x18\x07 \x01(\x01\x12\x0f\n\x07targetN\x18\x08 \x01(\x04\x12\x19\n\x11TargetUtilization\x18\t \x01(\x01\x12\x10\n\x08NoTarget\x18\n \x01(\x08\"i\n\nDataConfig\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x0f\n\x07TargetN\x18\x03 \x01(\x04\x12\x19\n\x11TargetUtilization\x18\x04 \x01(\x01\x12\x10\n\x08NoTarget\x18\x05 \x01(\x08\"\xa4\x01\n\x04Peer\x12\x13\n\x0b\x61\x64\x64ressList\x18\x01 \x03(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12)\n\x08\x64\x61taList\x18\x04 \x03(\x0b\x32\x17.veriservice.DataConfig\x12\x13\n\x0bserviceList\x18\x05 \x03(\t\x12#\n\x08peerList\x18\x06 \x03(\x0b\x32\x11.veriservice.Peer\".\n\x0bJoinRequest\x12\x1f\n\x04peer\x18\x01 \x01(\x0b\x32\x11.veriservice.Peer\"\x1f\n\x0cJoinResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t2\xf9\x03\n\x0bVeriService\x12\x43\n\x06Search\x12\x1a.veriservice.SearchRequest\x1a\x1b.veriservice.SearchResponse\"\x00\x12I\n\x06Insert\x12\x1d.veriservice.InsertionRequest\x1a\x1e.veriservice.InsertionResponse\"\x00\x12=\n\x04Join\x12\x18.veriservice.JoinRequest\x1a\x19.veriservice.JoinResponse\"\x00\x12\x41\n\nDataStream\x12\x1b.veriservice.GetDataRequest\x1a\x12.veriservice.Datum\"\x00\x30\x01\x12I\n\x15\x43reateDataIfNotExists\x12\x17.veriservice.DataConfig\x1a\x15.veriservice.DataInfo\"\x00\x12\x43\n\x0bGetDataInfo\x12\x1b.veriservice.GetDataRequest\x1a\x15.veriservice.DataInfo\"\x00\x12H\n\x0cSearchStream\x12\x1a.veriservice.SearchRequest\x1a\x18.veriservice.ScoredDatum\"\x00\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n\x11veriservice.proto\x12\x0bveriservice\"\x8a\x01\n\rSearchRequest\x12)\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x19.veriservice.SearchConfig\x12!\n\x05\x64\x61tum\x18\x02 \x03(\x0b\x32\x12.veriservice.Datum\x12+\n\x07\x63ontext\x18\x03 \x01(\x0b\x32\x1a.veriservice.SearchContext\"\xef\x01\n\x0cSearchConfig\x12\x15\n\rscoreFuncName\x18\x01 \x01(\t\x12\x16\n\x0ehigherIsBetter\x18\x02 \x01(\x08\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12\x0f\n\x07timeout\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\r\x12\x15\n\rcacheDuration\x18\x06 \x01(\x04\x12\x10\n\x08\x64\x61taName\x18\x07 \x01(\t\x12\x12\n\ngroupLimit\x18\x08 \x01(\r\x12\x1a\n\x12groupScoreFuncName\x18\t \x01(\t\x12\x0f\n\x07\x66ilters\x18\n \x03(\t\x12\x13\n\x0bresultLimit\x18\x0b \x01(\x04\"F\n\rSearchContext\x12!\n\x05\x64\x61tum\x18\x01 \x03(\x0b\x32\x12.veriservice.Datum\x12\x12\n\nprioritize\x18\x02 \x01(\x08\"\x1e\n\x0eGetDataRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"S\n\x05\x44\x61tum\x12\"\n\x03key\x18\x01 \x01(\x0b\x32\x15.veriservice.DatumKey\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.veriservice.DatumValue\"i\n\x08\x44\x61tumKey\x12\x0f\n\x07\x66\x65\x61ture\x18\x01 \x03(\x01\x12\x12\n\ngroupLabel\x18\x02 \x01(\x0c\x12\r\n\x05size1\x18\x03 \x01(\r\x12\r\n\x05size2\x18\x04 \x01(\r\x12\x0c\n\x04\x64im1\x18\x05 \x01(\r\x12\x0c\n\x04\x64im2\x18\x06 \x01(\r\",\n\nDatumValue\x12\x0f\n\x07version\x18\x01 \x01(\x04\x12\r\n\x05label\x18\x02 \x01(\x0c\"?\n\x0bScoredDatum\x12\r\n\x05score\x18\x01 \x01(\x01\x12!\n\x05\x64\x61tum\x18\x02 \x01(\x0b\x32\x12.veriservice.Datum\"e\n\x15InsertDatumWithConfig\x12)\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x19.veriservice.InsertConfig\x12!\n\x05\x64\x61tum\x18\x02 \x01(\x0b\x32\x12.veriservice.Datum\":\n\x0eSearchResponse\x12(\n\x06result\x18\x01 \x03(\x0b\x32\x18.veriservice.ScoredDatum\"r\n\x10InsertionRequest\x12)\n\x06\x63onfig\x18\x01 \x01(\x0b\x32\x19.veriservice.InsertConfig\x12!\n\x05\x64\x61tum\x18\x02 \x01(\x0b\x32\x12.veriservice.Datum\x12\x10\n\x08\x64\x61taName\x18\x03 \x01(\t\"\x1b\n\x0cInsertConfig\x12\x0b\n\x03tTL\x18\x01 \x01(\x04\"!\n\x11InsertionResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"\x8b\x02\n\x08\x44\x61taInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0b\n\x03\x61vg\x18\x04 \x03(\x01\x12\x0c\n\x04hist\x18\x05 \x03(\x01\x12\t\n\x01n\x18\x06 \x01(\x04\x12\x13\n\x0bmaxDistance\x18\x07 \x01(\x01\x12\x0f\n\x07targetN\x18\x08 \x01(\x04\x12\x19\n\x11targetUtilization\x18\t \x01(\x01\x12\x10\n\x08noTarget\x18\n \x01(\x08\x12\x1b\n\x13replicationOnInsert\x18\x0b \x01(\r\x12\"\n\x1a\x65nforceReplicationOnInsert\x18\x0c \x01(\x08\x12\x13\n\x0bretentation\x18\r \x01(\x04\"\xbf\x01\n\nDataConfig\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x0f\n\x07targetN\x18\x03 \x01(\x04\x12\x19\n\x11targetUtilization\x18\x04 \x01(\x01\x12\x10\n\x08noTarget\x18\x05 \x01(\x08\x12\x1b\n\x13replicationOnInsert\x18\x06 \x01(\r\x12\"\n\x1a\x65nforceReplicationOnInsert\x18\x07 \x01(\x08\x12\x13\n\x0bretentation\x18\x08 \x01(\x04\"\xa4\x01\n\x04Peer\x12\x13\n\x0b\x61\x64\x64ressList\x18\x01 \x03(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12)\n\x08\x64\x61taList\x18\x04 \x03(\x0b\x32\x17.veriservice.DataConfig\x12\x13\n\x0bserviceList\x18\x05 \x03(\t\x12#\n\x08peerList\x18\x06 \x03(\x0b\x32\x11.veriservice.Peer\".\n\x0bJoinRequest\x12\x1f\n\x04peer\x18\x01 \x01(\x0b\x32\x11.veriservice.Peer\"\x1f\n\x0cJoinResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t2\xf9\x03\n\x0bVeriService\x12\x43\n\x06Search\x12\x1a.veriservice.SearchRequest\x1a\x1b.veriservice.SearchResponse\"\x00\x12I\n\x06Insert\x12\x1d.veriservice.InsertionRequest\x1a\x1e.veriservice.InsertionResponse\"\x00\x12=\n\x04Join\x12\x18.veriservice.JoinRequest\x1a\x19.veriservice.JoinResponse\"\x00\x12\x41\n\nDataStream\x12\x1b.veriservice.GetDataRequest\x1a\x12.veriservice.Datum\"\x00\x30\x01\x12I\n\x15\x43reateDataIfNotExists\x12\x17.veriservice.DataConfig\x1a\x15.veriservice.DataInfo\"\x00\x12\x43\n\x0bGetDataInfo\x12\x1b.veriservice.GetDataRequest\x1a\x15.veriservice.DataInfo\"\x00\x12H\n\x0cSearchStream\x12\x1a.veriservice.SearchRequest\x1a\x18.veriservice.ScoredDatum\"\x00\x30\x01\x62\x06proto3'
 )
 
 
@@ -47,6 +47,13 @@ _SEARCHREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='context', full_name='veriservice.SearchRequest.context', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -59,8 +66,8 @@ _SEARCHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=34,
-  serialized_end=127,
+  serialized_start=35,
+  serialized_end=173,
 )
 
 
@@ -142,6 +149,13 @@ _SEARCHCONFIG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='resultLimit', full_name='veriservice.SearchConfig.resultLimit', index=10,
+      number=11, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -154,8 +168,47 @@ _SEARCHCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=130,
-  serialized_end=348,
+  serialized_start=176,
+  serialized_end=415,
+)
+
+
+_SEARCHCONTEXT = _descriptor.Descriptor(
+  name='SearchContext',
+  full_name='veriservice.SearchContext',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='datum', full_name='veriservice.SearchContext.datum', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='prioritize', full_name='veriservice.SearchContext.prioritize', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=417,
+  serialized_end=487,
 )
 
 
@@ -186,8 +239,8 @@ _GETDATAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=350,
-  serialized_end=380,
+  serialized_start=489,
+  serialized_end=519,
 )
 
 
@@ -225,8 +278,8 @@ _DATUM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=382,
-  serialized_end=465,
+  serialized_start=521,
+  serialized_end=604,
 )
 
 
@@ -292,8 +345,8 @@ _DATUMKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=467,
-  serialized_end=572,
+  serialized_start=606,
+  serialized_end=711,
 )
 
 
@@ -331,8 +384,8 @@ _DATUMVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=574,
-  serialized_end=618,
+  serialized_start=713,
+  serialized_end=757,
 )
 
 
@@ -370,8 +423,8 @@ _SCOREDDATUM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=620,
-  serialized_end=683,
+  serialized_start=759,
+  serialized_end=822,
 )
 
 
@@ -409,8 +462,8 @@ _INSERTDATUMWITHCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=685,
-  serialized_end=786,
+  serialized_start=824,
+  serialized_end=925,
 )
 
 
@@ -441,8 +494,8 @@ _SEARCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=788,
-  serialized_end=846,
+  serialized_start=927,
+  serialized_end=985,
 )
 
 
@@ -487,8 +540,8 @@ _INSERTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=848,
-  serialized_end=962,
+  serialized_start=987,
+  serialized_end=1101,
 )
 
 
@@ -519,8 +572,8 @@ _INSERTCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=964,
-  serialized_end=991,
+  serialized_start=1103,
+  serialized_end=1130,
 )
 
 
@@ -551,8 +604,8 @@ _INSERTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=993,
-  serialized_end=1026,
+  serialized_start=1132,
+  serialized_end=1165,
 )
 
 
@@ -621,16 +674,37 @@ _DATAINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TargetUtilization', full_name='veriservice.DataInfo.TargetUtilization', index=8,
+      name='targetUtilization', full_name='veriservice.DataInfo.targetUtilization', index=8,
       number=9, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='NoTarget', full_name='veriservice.DataInfo.NoTarget', index=9,
+      name='noTarget', full_name='veriservice.DataInfo.noTarget', index=9,
       number=10, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='replicationOnInsert', full_name='veriservice.DataInfo.replicationOnInsert', index=10,
+      number=11, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='enforceReplicationOnInsert', full_name='veriservice.DataInfo.enforceReplicationOnInsert', index=11,
+      number=12, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='retentation', full_name='veriservice.DataInfo.retentation', index=12,
+      number=13, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -646,8 +720,8 @@ _DATAINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1029,
-  serialized_end=1210,
+  serialized_start=1168,
+  serialized_end=1435,
 )
 
 
@@ -674,23 +748,44 @@ _DATACONFIG = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TargetN', full_name='veriservice.DataConfig.TargetN', index=2,
+      name='targetN', full_name='veriservice.DataConfig.targetN', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TargetUtilization', full_name='veriservice.DataConfig.TargetUtilization', index=3,
+      name='targetUtilization', full_name='veriservice.DataConfig.targetUtilization', index=3,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='NoTarget', full_name='veriservice.DataConfig.NoTarget', index=4,
+      name='noTarget', full_name='veriservice.DataConfig.noTarget', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='replicationOnInsert', full_name='veriservice.DataConfig.replicationOnInsert', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='enforceReplicationOnInsert', full_name='veriservice.DataConfig.enforceReplicationOnInsert', index=6,
+      number=7, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='retentation', full_name='veriservice.DataConfig.retentation', index=7,
+      number=8, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -706,8 +801,8 @@ _DATACONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1212,
-  serialized_end=1317,
+  serialized_start=1438,
+  serialized_end=1629,
 )
 
 
@@ -773,8 +868,8 @@ _PEER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1320,
-  serialized_end=1484,
+  serialized_start=1632,
+  serialized_end=1796,
 )
 
 
@@ -805,8 +900,8 @@ _JOINREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1486,
-  serialized_end=1532,
+  serialized_start=1798,
+  serialized_end=1844,
 )
 
 
@@ -837,12 +932,14 @@ _JOINRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1534,
-  serialized_end=1565,
+  serialized_start=1846,
+  serialized_end=1877,
 )
 
 _SEARCHREQUEST.fields_by_name['config'].message_type = _SEARCHCONFIG
 _SEARCHREQUEST.fields_by_name['datum'].message_type = _DATUM
+_SEARCHREQUEST.fields_by_name['context'].message_type = _SEARCHCONTEXT
+_SEARCHCONTEXT.fields_by_name['datum'].message_type = _DATUM
 _DATUM.fields_by_name['key'].message_type = _DATUMKEY
 _DATUM.fields_by_name['value'].message_type = _DATUMVALUE
 _SCOREDDATUM.fields_by_name['datum'].message_type = _DATUM
@@ -856,6 +953,7 @@ _PEER.fields_by_name['peerList'].message_type = _PEER
 _JOINREQUEST.fields_by_name['peer'].message_type = _PEER
 DESCRIPTOR.message_types_by_name['SearchRequest'] = _SEARCHREQUEST
 DESCRIPTOR.message_types_by_name['SearchConfig'] = _SEARCHCONFIG
+DESCRIPTOR.message_types_by_name['SearchContext'] = _SEARCHCONTEXT
 DESCRIPTOR.message_types_by_name['GetDataRequest'] = _GETDATAREQUEST
 DESCRIPTOR.message_types_by_name['Datum'] = _DATUM
 DESCRIPTOR.message_types_by_name['DatumKey'] = _DATUMKEY
@@ -886,6 +984,13 @@ SearchConfig = _reflection.GeneratedProtocolMessageType('SearchConfig', (_messag
   # @@protoc_insertion_point(class_scope:veriservice.SearchConfig)
   })
 _sym_db.RegisterMessage(SearchConfig)
+
+SearchContext = _reflection.GeneratedProtocolMessageType('SearchContext', (_message.Message,), {
+  'DESCRIPTOR' : _SEARCHCONTEXT,
+  '__module__' : 'veriservice_pb2'
+  # @@protoc_insertion_point(class_scope:veriservice.SearchContext)
+  })
+_sym_db.RegisterMessage(SearchContext)
 
 GetDataRequest = _reflection.GeneratedProtocolMessageType('GetDataRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETDATAREQUEST,
@@ -1001,8 +1106,8 @@ _VERISERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1568,
-  serialized_end=2073,
+  serialized_start=1880,
+  serialized_end=2385,
   methods=[
   _descriptor.MethodDescriptor(
     name='Search',
