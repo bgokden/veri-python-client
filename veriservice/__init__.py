@@ -12,7 +12,7 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.23"
+__version__ = "0.0.24"
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -98,9 +98,9 @@ class VeriClient:
         request = pb.DataConfig(
             name=self.data_name,
             version=data_config.get("version", "v0"),
-            TargetN=data_config.get("target_n", 10000),
-            TargetUtilization=data_config.get("target_utilization", 0.9),
-            NoTarget=data_config.get("no_target", False),
+            targetN=data_config.get("target_n", 10000),
+            targetUtilization=data_config.get("target_utilization", 0.9),
+            noTarget=data_config.get("no_target", False),
         )
         response = None
         while retry >= 0:
