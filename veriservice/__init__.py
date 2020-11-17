@@ -12,7 +12,7 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.24"
+__version__ = "0.0.25"
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -111,11 +111,9 @@ class VeriClient:
                 if response != None:
                     return response
             except grpc.RpcError as e:  # there should be connection problem
-                logging.debug(f"Grpc Error: {e}")
                 if client_wrapper is not None:
                     self.__refresh_client(client_wrapper.get_service())
             except Exception as e:
-                logging.debug(f"Error: {e}")
                 time.sleep(0.200)
             retry -= 1
         return response
@@ -200,7 +198,7 @@ class VeriClient:
                 dataName=self.data_name,
                 scoreFuncName=kwargs.get("score_func_name", "VectorDistance"),
                 higherIsBetter=kwargs.get("higher_is_better", False),
-                timestamp=int(time.time()),
+                timestamp=kwargs.get("timestamp", 0),
                 timeout=kwargs.get("timeout", 1000),
                 limit=kwargs.get("limit", 1000),
                 cacheDuration=kwargs.get("cache_duration", 60),
