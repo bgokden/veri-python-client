@@ -12,11 +12,11 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.27"
+__version__ = "0.0.29"
 
 logging.basicConfig(level=logging.DEBUG)
 
-BASE_PATH = "https://github.com/bgokden/veri/releases/download/v0.0.29"
+BASE_PATH = "https://github.com/bgokden/veri/releases/download/v0.0.31"
 
 def get_url(base_path = BASE_PATH):
     platform_type = platform.system().lower()
@@ -204,6 +204,8 @@ class VeriClient:
                 cacheDuration=kwargs.get("cache_duration", 60),
                 groupLimit=kwargs.get("group_limit", 0),
                 resultLimit=kwargs.get("result_limit", 0),
+                filters=kwargs.get("filters", []),
+                groupFilters=kwargs.get("group_filters", []),
             ),
             datum=datum_list,
             context=pb.SearchContext(
