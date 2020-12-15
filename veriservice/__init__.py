@@ -12,11 +12,11 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.30"
+__version__ = "0.0.31"
 
 logging.basicConfig(level=logging.DEBUG)
 
-BASE_PATH = "https://github.com/bgokden/veri/releases/download/v0.0.32"
+BASE_PATH = "https://github.com/bgokden/veri/releases/download/v0.0.33"
 
 def get_url(base_path = BASE_PATH):
     platform_type = platform.system().lower()
