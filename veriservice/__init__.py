@@ -12,11 +12,11 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.31"
+__version__ = "0.0.32"
 
 logging.basicConfig(level=logging.DEBUG)
 
-BASE_PATH = "https://github.com/bgokden/veri/releases/download/v0.0.33"
+BASE_PATH = "https://github.com/bgokden/veri/releases/download/v0.0.43"
 
 def get_url(base_path = BASE_PATH):
     platform_type = platform.system().lower()
@@ -94,15 +94,16 @@ class VeriClient:
         time.sleep(0.500)
 
 
-    def create_data_if_not_exists(self, data_config={}, retry=5):
+    def create_data_if_not_exists(self, **kwargs):
         request = pb.DataConfig(
             name=self.data_name,
-            version=data_config.get("version", "v0"),
-            targetN=data_config.get("target_n", 10000),
-            targetUtilization=data_config.get("target_utilization", 0.9),
-            noTarget=data_config.get("no_target", False),
+            version=kwargs.get("version", 1),
+            targetN=kwargs.get("target_n", 10000),
+            targetUtilization=kwargs.get("target_utilization", 0.5),
+            noTarget=kwargs.get("no_target", False),
         )
         response = None
+        retry = kwargs.get("retry", 5)
         while retry >= 0:
             client_wrapper = None
             try:

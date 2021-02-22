@@ -31,6 +31,11 @@ class VeriServiceStub(object):
                 request_serializer=veriservice_dot_veriservice__pb2.JoinRequest.SerializeToString,
                 response_deserializer=veriservice_dot_veriservice__pb2.JoinResponse.FromString,
                 )
+        self.AddPeer = channel.unary_unary(
+                '/veriservice.VeriService/AddPeer',
+                request_serializer=veriservice_dot_veriservice__pb2.AddPeerRequest.SerializeToString,
+                response_deserializer=veriservice_dot_veriservice__pb2.AddPeerResponse.FromString,
+                )
         self.DataStream = channel.unary_stream(
                 '/veriservice.VeriService/DataStream',
                 request_serializer=veriservice_dot_veriservice__pb2.GetDataRequest.SerializeToString,
@@ -50,6 +55,11 @@ class VeriServiceStub(object):
                 '/veriservice.VeriService/SearchStream',
                 request_serializer=veriservice_dot_veriservice__pb2.SearchRequest.SerializeToString,
                 response_deserializer=veriservice_dot_veriservice__pb2.ScoredDatum.FromString,
+                )
+        self.Ping = channel.unary_unary(
+                '/veriservice.VeriService/Ping',
+                request_serializer=veriservice_dot_veriservice__pb2.PingRequest.SerializeToString,
+                response_deserializer=veriservice_dot_veriservice__pb2.PingResponse.FromString,
                 )
 
 
@@ -71,6 +81,12 @@ class VeriServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Join(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddPeer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -100,6 +116,12 @@ class VeriServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Ping(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VeriServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -117,6 +139,11 @@ def add_VeriServiceServicer_to_server(servicer, server):
                     servicer.Join,
                     request_deserializer=veriservice_dot_veriservice__pb2.JoinRequest.FromString,
                     response_serializer=veriservice_dot_veriservice__pb2.JoinResponse.SerializeToString,
+            ),
+            'AddPeer': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddPeer,
+                    request_deserializer=veriservice_dot_veriservice__pb2.AddPeerRequest.FromString,
+                    response_serializer=veriservice_dot_veriservice__pb2.AddPeerResponse.SerializeToString,
             ),
             'DataStream': grpc.unary_stream_rpc_method_handler(
                     servicer.DataStream,
@@ -137,6 +164,11 @@ def add_VeriServiceServicer_to_server(servicer, server):
                     servicer.SearchStream,
                     request_deserializer=veriservice_dot_veriservice__pb2.SearchRequest.FromString,
                     response_serializer=veriservice_dot_veriservice__pb2.ScoredDatum.SerializeToString,
+            ),
+            'Ping': grpc.unary_unary_rpc_method_handler(
+                    servicer.Ping,
+                    request_deserializer=veriservice_dot_veriservice__pb2.PingRequest.FromString,
+                    response_serializer=veriservice_dot_veriservice__pb2.PingResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -198,6 +230,23 @@ class VeriService(object):
         return grpc.experimental.unary_unary(request, target, '/veriservice.VeriService/Join',
             veriservice_dot_veriservice__pb2.JoinRequest.SerializeToString,
             veriservice_dot_veriservice__pb2.JoinResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddPeer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/veriservice.VeriService/AddPeer',
+            veriservice_dot_veriservice__pb2.AddPeerRequest.SerializeToString,
+            veriservice_dot_veriservice__pb2.AddPeerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -266,5 +315,22 @@ class VeriService(object):
         return grpc.experimental.unary_stream(request, target, '/veriservice.VeriService/SearchStream',
             veriservice_dot_veriservice__pb2.SearchRequest.SerializeToString,
             veriservice_dot_veriservice__pb2.ScoredDatum.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Ping(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/veriservice.VeriService/Ping',
+            veriservice_dot_veriservice__pb2.PingRequest.SerializeToString,
+            veriservice_dot_veriservice__pb2.PingResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
