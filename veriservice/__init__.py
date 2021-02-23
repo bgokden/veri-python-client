@@ -101,6 +101,9 @@ class VeriClient:
             targetN=kwargs.get("target_n", 10000),
             targetUtilization=kwargs.get("target_utilization", 0.5),
             noTarget=kwargs.get("no_target", False),
+            replicationOnInsert=kwargs.get("replication_on_insert", 2),
+            enforceReplicationOnInsert=kwargs.get("enforce_replication_on_insert", True),
+            retention=kwargs.get("retention", 0),
         )
         response = None
         retry = kwargs.get("retry", 5)
