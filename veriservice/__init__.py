@@ -12,7 +12,7 @@ import subprocess
 from veriservice import veriservice_pb2 as pb
 from veriservice import veriservice_pb2_grpc as pb_grpc
 
-__version__ = "0.0.33"
+__version__ = "0.0.34"
 
 logging.basicConfig(level=logging.DEBUG)
 
